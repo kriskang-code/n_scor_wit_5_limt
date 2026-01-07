@@ -92,45 +92,29 @@
   <script src="js/classlist_polyfill.js"></script>
   <script src="js/animframe_polyfill.js"></script>
   <script src="js/keyboard_input_manager.js"></script>
+  <script src="js/time_pressure.js"></script>
   <script src="js/html_actuator.js"></script>
   <script src="js/grid.js"></script>
   <script src="js/tile.js"></script>
   <script src="js/local_storage_manager.js"></script>
   <script src="js/game_manager.js"></script>
   <script src="js/application.js"></script>
-
   <script>
-  window.addEventListener("load", function () {
+window.addEventListener("load", function () {
 
-    /* ===== real-time clock ===== */
-    function updateClock() {
-      document.getElementById("clock").textContent =
-        new Date().toLocaleTimeString();
-    }
-    updateClock();
-    setInterval(updateClock, 1000);
+  /* ===== real-time clock ===== */
+  function updateClock() {
+    const clockEl = document.getElementById("clock")
+    if (!clockEl) return
+    clockEl.textContent = new Date().toLocaleTimeString()
+  }
 
-    /* ===== countdown ===== */
-    var remaining = 10 * 60; // 10 minutes
-    var cd = document.getElementById("countdown");
+  updateClock()
+  setInterval(updateClock, 1000)
 
-    function format(sec) {
-      var m = Math.floor(sec / 60);
-      var s = sec % 60;
-      return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
-    }
+});
 
-    cd.textContent = format(remaining);
-
-    var timer = setInterval(function () {
-      remaining--;
-      cd.textContent = format(Math.max(remaining, 0));
-      if (remaining <= 0) clearInterval(timer);
-    }, 1000);
-  });
 </script>
-
-
 
 </body>
 </html>
